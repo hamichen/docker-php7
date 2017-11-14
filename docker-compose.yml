@@ -48,7 +48,7 @@ services:
           - "3306:3306"
       volumes:
           - ./database:/var/lib/mysql
-          - ./mysqlconf:/etc/mysql/mysql/conf.d
+          - ./mysqlconf:/etc/mysql/conf.d
           - /etc/localtime:/etc/localtime:ro
       restart: always
       privileged: true
