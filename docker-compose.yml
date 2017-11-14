@@ -35,7 +35,6 @@ services:
           - "DB_DATABASE=communitycollege"
       volumes:
           - ./app:/var/app
-          - ./php/sessions:/var/lib/php/sessions
           - /etc/localtime:/etc/localtime:ro
       restart: always
       privileged: true
