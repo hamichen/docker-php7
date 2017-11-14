@@ -32,7 +32,7 @@ services:
           - "9000"
       environment:
           - "DB_HOST=db"
-          - "DB_DATABASE=communitycollege"
+          - "DB_DATABASE=moenews"
       volumes:
           - ./app:/var/app
           - /etc/localtime:/etc/localtime:ro
@@ -53,14 +53,4 @@ services:
       restart: always
       privileged: true
 
-  phpmyadmin:
-      image: phpmyadmin/phpmyadmin
-      links:
-          - db:mysql
-      ports:
-          - 8181:80
-      environment:
-          MYSQL_USERNAME: root
-          MYSQL_ROOT_PASSWORD: changeMe
-      restart: always
 
