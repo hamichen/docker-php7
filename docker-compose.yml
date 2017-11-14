@@ -10,7 +10,10 @@ services:
         - "27017:27017"
       volumes:
         - ./mongodb:/data/db
+        - /etc/localtime:/etc/localtime:ro
+
       restart: always
+      privileged: true
 
   nginx:
       build:
@@ -19,7 +22,10 @@ services:
           - "80:80"
       volumes:
           - ./app:/var/app
+        - /etc/localtime:/etc/localtime:ro
+
       restart: always
+      privileged: true
 
   fpm:
       build:
@@ -32,7 +38,9 @@ services:
       volumes:
           - ./app:/var/app
           - ./php/sessions:/var/lib/php/sessions
+          - /etc/localtime:/etc/localtime:ro
       restart: always
+      privileged: true
 
   db:
       image: mariadb
@@ -43,8 +51,10 @@ services:
           - "3306:3306"
       volumes:
           - ./database:/var/lib/mysql
-      restart: always
+        - /etc/localtime:/etc/localtime:ro
 
+      restart: always
+      privileged: true
 
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
