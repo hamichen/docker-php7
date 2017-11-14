@@ -43,11 +43,12 @@ services:
       image: mariadb
       environment:
           - MYSQL_ROOT_PASSWORD=changeMe
-          - MYSQL_DATABASE=communitycollege
+          - MYSQL_DATABASE=moenews
       ports:
           - "3306:3306"
       volumes:
           - ./database:/var/lib/mysql
+          - ./mysqlconf:/etc/mysql/mysql/conf.d
           - /etc/localtime:/etc/localtime:ro
       restart: always
       privileged: true
