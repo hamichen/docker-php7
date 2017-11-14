@@ -1,0 +1,66 @@
+version: "2"
+services:
+  memcached:
+      image: memcached
+      restart: always
+
+  mongodb:
+      image: library/mongo:3.4.9
+      ports:
+        - "27017:27017"
+      volumes:
+        - ./mongodb:/data/db
+        - "/etc/timezone:/etc/timezone:ro"
+        - "/etc/localtime:/etc/localtime:ro"
+      restart: always
+
+  nginx:
+      build:
+          context: ./nginx
+      ports:
+          - "80:80"
+      volumes:
+          - ./app:/var/app
+          - "/etc/timezone:/etc/timezone:ro"
+          - "/etc/localtime:/etc/localtime:ro"
+      restart: always
+
+  fpm:
+      build:
+          context: ./fpm
+      expose:
+          - "9000"
+      environment:
+          - "DB_HOST=db"
+          - "DB_DATABASE=communitycollege"
+      volumes:
+          - ./app:/var/app
+          - ./php/sessions:/var/lib/php/sessions
+          - "/etc/timezone:/etc/timezone:ro"
+          - "/etc/localtime:/etc/localtime:ro"
+      restart: always
+
+  db:
+      image: mariadb
+      environment:
+          - MYSQL_ROOT_PASSWORD=changeMe
+          - MYSQL_DATABASE=communitycollege
+      ports:
+          - "3306:3306"
+      volumes:
+          - ./database:/var/lib/mysql
+          - "/etc/timezone:/etc/timezone:ro"
+          - "/etc/localtime:/etc/localtime:ro"
+      restart: always
+
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      links:
+          - db:mysql
+      ports:
+          - 8181:80
+      environment:
+          MYSQL_USERNAME: root
+          MYSQL_ROOT_PASSWORD: changeMe
+      restart: always
