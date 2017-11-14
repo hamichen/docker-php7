@@ -9,9 +9,8 @@ services:
       ports:
         - "27017:27017"
       volumes:
-        - ./mongodb:/data/db
-        - /etc/localtime:/etc/localtime:ro
-
+          - ./mongodb:/data/db
+          - /etc/localtime:/etc/localtime:ro
       restart: always
       privileged: true
 
@@ -22,8 +21,7 @@ services:
           - "80:80"
       volumes:
           - ./app:/var/app
-        - /etc/localtime:/etc/localtime:ro
-
+          - /etc/localtime:/etc/localtime:ro
       restart: always
       privileged: true
 
@@ -51,8 +49,7 @@ services:
           - "3306:3306"
       volumes:
           - ./database:/var/lib/mysql
-        - /etc/localtime:/etc/localtime:ro
-
+          - /etc/localtime:/etc/localtime:ro
       restart: always
       privileged: true
 
@@ -66,3 +63,4 @@ services:
           MYSQL_USERNAME: root
           MYSQL_ROOT_PASSWORD: changeMe
       restart: always
+
